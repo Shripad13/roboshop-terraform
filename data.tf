@@ -1,7 +1,7 @@
 data "aws_ami" "main" {
-    most_recent = true
-    name_regex = "DevOps-LabImage-RHEL9"
-    owners     = ["AC_ID"]
+  most_recent = true
+  name_regex  = "DevOps-LabImage-RHEL9"
+  owners      = ["AC_ID"]
 }
 
 # Get SSH Info

@@ -126,3 +126,75 @@ For go & java, compilation is required.
 For nodejs & Python, Compilation is not required.
 
 log file - /var/log/messages 
+
+
+
+##
+
+
+for i in mongodb catalogue user cart redis ; do 
+> bash init.sh $i dev DevOps321 
+> done
+
+cart, user, catalogue are all 3 developed by nodejs components, so we can DRY the code as much as we can 
+Even we implemented DRY for below services considering future scale of backends
+shipping is developed by Java, 
+payment developed by Python
+Dispatch developed by golang
+
+## high Level Flow of RoboShop Project ##
+We are getting the Roboshop in 2 steps:
+1. Run terraform script to provision Infra
+2. Play the Ansible Runbook to perform the CM
+
+
+> With Infra provisioning itself , i want playbooks to be called by remote-exec that we can achieve it
+file - tf-call-ansible.tf
+
+# How Terraform fetch the secrets from vault? OR Integrate Terraform with hashicorp vault? 
+Create a provider.tf in that add vault provider alongwith URL of vault
+Fetch/ Extracts from data.tf file
+
+
+> If tf-call-ansible.tf file doesnt recognize then rename to app.tf
+
+git pull; terraform init --var-file=dev.tfvars ; terraform plan --var-file=dev.tfvars -var vault_token=<mentionVaultkey> ; terraform apply -auto-approve --var-file=dev.tfvars -var vault_token=<mentionVaultkey>
+
+
+#  Advantage of map over list in Terraform
+list you will never use in terraform bcoz if you change the order of list in TF, for next Run TF considers change then it will destroy & recreate Infra
+
+When you supply input as a list order matters most
+people quiet afraid of using list in TF
+
+
+> Infra provisioned was added with a remote provisioned & now with a single click of button , we are able to bring up the App.
+
+# Goal - Roboshop should have its own VPC provisioned along with app based subnets
+
+
+## VPC Provisions steps -
+1st provisioned Subnets
+2nd provision route tables - each subnet in each zone will have its own route tables
+Then association of route tables
+3rd Provision IGW for Public Subnet
+4th Provision NAT Gateway for Private Subnets
+
+
+# Roboshop VPC Architecture - B58-S85-11-Dec-2024
+10.0.0.0/16  > dev
+10.1.0.0/16  > qa
+10.2.0.0/16  > Prod
+
+Keeping in mind of High Availability, selecting 2 different Availability Zones for each subnet
+
+* Total 4 Subnets in each 2 different AZ
+Public Subnets - LB will be exposed in this subnet
+Web Subnets    - Frontend/ web servers will be hosted in this subnet
+App Subnets    - All Backends servers will be hosted in this subnet
+DB Subnets     - DB will be hosted in this subnet
+
+Route Tables for all Subnets
+NAT Gateway for Web Subnet, App Subnet, DB Subnet so that servers can access the Internet
+Internet gateway is only for Public Subnet
+

@@ -1,11 +1,22 @@
-resource "aws_instance" "main" {
-     count = length(var.components)
-     ami = data.aws_ami.main.image_id
-     instance_type = "t3.small"
-     vpc_security_group_ids = [aws_security_group.main.*.id[count.index]]
+# resource "aws_instance" "main" {
+#   count                  = length(var.components)
+#   ami                    = data.aws_ami.main.image_id
+#   instance_type          = "t3.small"
+#   vpc_security_group_ids = [aws_security_group.main.*.id[count.index]]
 
-     tags = {
-        Name = "${var.components[count.index]}-${var.env}"
-     }
+#   tags = {
+#     Name = "${var.components[count.index]}-${var.env}"
+#   }
+# }
+
+module "vpc" {
+  for_each = var.vpc
+
+  source = "./module/vpc"
+
+  cidr = each.value["cidr"]
+  subnets  = each.value["subnets"]
+  env = var.env
+
+  availability_zones = each.value["availability_zones"]
 }
-

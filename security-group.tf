@@ -11,7 +11,7 @@ resource "aws_security_group" "main" {
     description = "Allows All"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"                   
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -21,7 +21,7 @@ resource "aws_security_group" "main" {
     protocol    = "-1" # -1 means all protocols TCP & UDP
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   tags = {
     Name = "${var.components[count.index]}-${var.env}"
   }
