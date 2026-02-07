@@ -198,3 +198,35 @@ Route Tables for all Subnets
 NAT Gateway for Web Subnet, App Subnet, DB Subnet so that servers can access the Internet
 Internet gateway is only for Public Subnet
 
+> We have 2 VPC's for All tools VPC & Project VPC
+> Enable VPC eering between tools VPC & Project VPC so that Jenkins server can access the Roboshop VPC to run the Ansible playbooks
+
+# Enable VPC Peering between Tools VPC & Project VPC
+Tools vpc peers with Project VPC, so we enable the connectivity between these 2 VPC's
+
+Ensure you supply these as inputs:
+vpc-id of tools VPC
+tools route table ids
+tools VPC CIDR
+
+
+# Add peering as a route to :
+- tools vpc route table & all app, web, db & public subnets route table of project vpc
+
+# Problem Statement:
+1. roboshop.internal : Private Domain
+    Scope: DNS Resolution or nslookup of any *.roboshop.internal will only work on the VPC's that you have associated.
+    Our Hosted Zone is attached to default vpc and through tf we have also attached this to created tools vpc (We typically dont detach or attach often)
+
+    When you attach any new vpc to the hosted zone, typically it takes anywhere from 1 min to 24 hr to work.
+
+    VPC -----> DB's -----> Components
+
+Workaround: Lets use the same public zone cloudapps.today, but create DNS Record using the private IP address.
+This public hosted zone works on any vpc.
+
+# How are we going to expose app to internet?
+    1. Provision a public Application Load Balancer on PUBLIC SUbnet
+    2. Create a Target Group for frontend and add the frontend nodes.
+    3. Enroll the frontend Target Groups to ALB
+    4. We can access the App using ALB CNAME.
