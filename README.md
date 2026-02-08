@@ -230,3 +230,8 @@ This public hosted zone works on any vpc.
     2. Create a Target Group for frontend and add the frontend nodes.
     3. Enroll the frontend Target Groups to ALB
     4. We can access the App using ALB CNAME.
+
+
+# Project Architecture -
+[![Project Architecture](ProjectArchitecture.jpg)]
+
