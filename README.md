@@ -1,5 +1,9 @@
 # roboshop-terraform
-This repo holds the IAC using Terraform to provision the EC2 infra needed to host roboshop project.
+This repo holds the IAC using Terraform to provision the EKS & Deploy the roboshop containerized apps on EKS as deloyments.
+
+Mongodb, RabbitMQ, MySQL & Redis would still be there on EC2.
+Stateless Workloads/ Apps would be deployed on EKS.
+Stateful workloads would be running on EC2 nodes.
 
 
 # COmmands -
@@ -126,3 +130,7 @@ For go & java, compilation is required.
 For nodejs & Python, Compilation is not required.
 
 log file - /var/log/messages 
+
+
+
+# T
