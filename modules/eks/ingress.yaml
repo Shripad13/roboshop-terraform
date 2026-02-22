@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: expense
+spec:
+  rules:
+  - hosts: expense.devsecopswithshri.site # Need to create a DNS record for the ingress LB as CNAME
+    http:
+     paths:
+     - path: /
+       pathType: Prefix
+       backend:
+         service:
+           name: expense
+           port:
+             number: 8800

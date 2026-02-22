@@ -133,4 +133,49 @@ log file - /var/log/messages
 
 
 
-# T
+# 
+We would be using a helm charts to deploy the Nginx Ingress Controller from the official document from nginx- ingress
+https://kubernetes.github.io/ingress-nginx/deploy/#/quick-start
+
+# 
+We will deploy prometheus & Graffana on EKS Cluster
+
+# OIDC Open ID connectivity - 
+OIDC is a credentials distributor
+Reference - https://github.com/kubernetes-sigs/external-dns
+
+Enables connectivity between k8 service account with AWS DNS which will enroll the external DNS records  on Route53 zone.
+
+EKS CLuster needs to create a DNS on ROute53 zone for this authentication
+Create a IAM role in EKS Cluster
+Enable the trust means enable authenticity
+Provision OIDC provider to enable trust between EKS & Route53 using terraform
+IAM Role is to map externalDNS in cluster for ServiceAccount
+We need IAM OIDC Provider for this we will enroll our EKS & the ServiceAccount
+
+
+# How to get the thumbprint dynamically?
+There is a tool called kubergrunt
+kubergrunt is a hybrid tool used by terraform to get the info from terraform
+kubergrunt helps to fetch the properties of kubernetes resources
+
+ $ kubergrunt eks oidc-thumbprint --issuer-url <OIDC Provider URL>
+
+ # Pod Identity associations
+ EKS Pod Identity is a method to associate AWS IAM Roles to pods for the workloads to use.
+
+> OIDC is needed when Google k8s engine wants talk to AWS service
+> Inside AWS EKS Cluster , OIDC is not needed bcoz POD IDENTITY Association can directly talk to AWS services
+>
+> Operatore is a resource on k8s that offers custom resource technician
+
+
+# DNS Records Provisioning should be automated by using External DNS
+This ensures ingress resources that are provisioned for grafana, prometheis, elk & frontend component, DNS records mentioned in the ingress would automatically get provisioned by external-dns in Route53 zone.
+
+# Enable EKS to Vault Integration 
+All the config & secrets should befetched from vault.
+
+# Design Dashboards on OpenSearch to Observe the Telemtry 
+
+> In organization, vault would be setup on K8 EKS Cluster by keeping the security aspect.

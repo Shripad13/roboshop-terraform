@@ -81,32 +81,6 @@ redis = {
 eks = {
     main = {
         subnet_ref = "app"
-        eks_cluster_version = "1.33"
-
-        node_groups = {
-            first = {
-                min_nodes = 1
-                max_nodes = 3
-                capacity_type = "ON_DEMAND"        # Here we can use "SPOT" instance
-                instance_types = ["t3.medium"]
-            }
-        }
-        addons = { # EKS addons
-          kube-proxy = {
-            addon_versions = null
-            resolve_conflicts_on_update = "PRESERVE"
-
-          }
-          vpc_cni = {
-            addon_versions = null
-            resolve_conflicts_on_update = "PRESERVE"
-
-          }
-          eks-pod-identity-agent = {
-            addon_versions = null
-            resolve_conflicts_on_update = "OVERWRITE"
-
-          }
-        }
+        eks_cluster_version = "1.30"
     }
 }

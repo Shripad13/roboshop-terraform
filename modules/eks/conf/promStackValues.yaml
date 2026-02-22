@@ -1,0 +1,9 @@
+grafana:
+  ingress:
+    enabled: true
+    ingressClassname: nginx
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassname: nginx    
