@@ -6,7 +6,7 @@ Stateless Workloads/ Apps would be deployed on EKS.
 Stateful workloads would be running on EC2 nodes.
 
 
-# COmmands -
+# Commands -
 sudo dnf install nginx:1.24 -y
 sudo dnf list |grep nginx
 sudo dnf install enable nginx
@@ -138,7 +138,7 @@ We would be using a helm charts to deploy the Nginx Ingress Controller from the 
 https://kubernetes.github.io/ingress-nginx/deploy/#/quick-start
 
 # 
-We will deploy prometheus & Graffana on EKS Cluster
+We will deploy prometheus & Grafana on EKS Cluster
 
 # OIDC Open ID connectivity - 
 OIDC is a credentials distributor
@@ -174,7 +174,7 @@ kubergrunt helps to fetch the properties of kubernetes resources
 This ensures ingress resources that are provisioned for grafana, prometheis, elk & frontend component, DNS records mentioned in the ingress would automatically get provisioned by external-dns in Route53 zone.
 
 # Enable EKS to Vault Integration 
-All the config & secrets should befetched from vault.
+All the config & secrets should be fetched from vault.
 
 # Design Dashboards on OpenSearch to Observe the Telemtry 
 

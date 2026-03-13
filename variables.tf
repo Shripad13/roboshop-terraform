@@ -8,5 +8,5 @@ variable "bastion_host" {}
 variable "hosted_zone_id" {}
 
 variable "eks" {}
-variable "component_name" {}
+variable "components" {}
 variable "node_groups" {}
