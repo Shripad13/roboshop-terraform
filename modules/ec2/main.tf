@@ -7,3 +7,4 @@ resource "aws_instance" "main" {
   tags = {
     Name = "${var.component_name}-${var.env}"
   }
+}
